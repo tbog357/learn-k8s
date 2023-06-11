@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv-volume
+  labels:
+    type: local
+    app: postgres
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  # mounted to pod directly
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany # Read-write by many nodes
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /mnt/local_postgres
+    server: 192.168.49.1
